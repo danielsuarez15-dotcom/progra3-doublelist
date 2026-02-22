@@ -109,8 +109,43 @@ public class DoubleList<T> implements List<T> {
 	}
 	@Override
 	public void add(int index, T element) {
-		// TODO Auto-generated method stub
-		
+		Node <T> newNode = new Node<T>(element);
+        if(index< 0 || index > size){
+            throw new IndexOutOfBoundsException();  
+        }
+        
+        if(element == null){
+            throw  new NullPointerException();
+        }
+        //SI ESTA VACIO
+        if(size == 0 ){
+            head = newNode;
+            tail = newNode;
+        }
+        //INSERTAR AL PRINCIPIO
+        if(index  == 0){
+            newNode.setNext(head);
+            head.setPrevious(newNode);
+            head = newNode; 
+            
+            //INSERTAR AL FINAL
+        }else if(index ==  size){
+            newNode.setPrevious(tail);
+            tail.setNext(newNode);
+            tail = newNode;
+            //INSERTAR EN MEDIO
+        }else {
+            Node <T> currentNode = head;
+            for(int i = 0 ; i < index ; i++){
+                currentNode= currentNode.getNext();
+            }
+            Node <T> previusNode =currentNode.getPrevious();
+            previusNode.setNext(newNode);
+            newNode.setPrevious(previusNode);
+            newNode.setNext(currentNode);
+            currentNode.setPrevious(newNode);
+        }
+        size++;
 	}
 	@Override
 	public T remove(int index) {
