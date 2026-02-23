@@ -256,8 +256,33 @@ public boolean addAll(int index, Collection<? extends T> c) {
 }
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		if (c == null) {
+			throw new NullPointerException("La coleccion esta nula");
+		}
+		Node<T> temporalNode = head;
+		boolean isDeleted = false;
+		while (temporalNode != null) {
+			Node<T> nextNode = temporalNode.getNext();
+			if (c.contains(temporalNode.getValue())) {
+				if (temporalNode.getPrevious() == null) {
+					head = temporalNode.getNext();
+					if (head != null) {
+						head.setPrevious(null);
+					} else {
+						tail = null;
+					}
+				} else if (temporalNode.getNext() == null) {
+					tail = temporalNode.getPrevious();
+					tail.setNext(null);
+				} else {
+					temporalNode.getPrevious().setNext(temporalNode.getNext());
+					temporalNode.getNext().setPrevious(temporalNode.getPrevious());
+				}
+				isDeleted = true;
+			}
+			temporalNode = nextNode;
+		}
+		return isDeleted;
 	}
 
 	@Override
