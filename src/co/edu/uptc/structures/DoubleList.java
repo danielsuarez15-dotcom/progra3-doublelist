@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class DoubleList<T> implements List<T> {
     private Node<T> head;
@@ -122,11 +123,22 @@ public class DoubleList<T> implements List<T> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
-	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int lastIndexOf(Object o) {
+        int output = size; 
+        boolean found = false;
+        
+        while (output > 0 &&!found) {
+            output--;
+            if (Objects.equals(o, get(output))) {
+                found=  true;
+            }
+        }
+
+        return found ? output : -1; 
+
+
+    }
 	@Override
 	public ListIterator<T> listIterator() {
 		// TODO Auto-generated method stub
