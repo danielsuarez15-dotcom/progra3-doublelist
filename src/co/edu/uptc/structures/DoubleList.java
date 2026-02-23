@@ -417,8 +417,19 @@ public boolean addAll(int index, Collection<? extends T> c) {
 
 	@Override
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (o == null) {
+        throw new NullPointerException("the lis is does not allow null objects");
+        }
+        Node<T> temporalNode = head;
+        int counter = 0;
+        while (temporalNode != null) {
+            if (o.equals(temporalNode.getValue())) {
+                return counter;
+            }
+            temporalNode = temporalNode.getNext();
+            counter++;
+        }
+        return-1;
 	}
     @Override
     public int lastIndexOf(Object o) {
